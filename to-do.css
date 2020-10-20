@@ -1,0 +1,33 @@
+
+.list-interface{
+  width:300px;
+  height:350px;
+  background-color:red;
+}
+.header{
+  color:white;
+  
+}
+.add-list{
+  float:right;
+}
+.input-box{
+  width:250px;
+  padding-left:5px;
+}
+.check-box{
+  height:20px;
+  width:20px;
+}
+.list-span{
+  padding:5px;
+  position:centre;
+  height:20px;
+}
+.list-box{
+  background-color:lightgrey;
+}
+.clear-button{
+  float:right;
+  height:25px;
+}
