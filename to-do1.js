@@ -107,16 +107,10 @@ function CreateToDo(message,hour,minute){
   }
   checkAlarm();
   function alarmRing(){
+    navigator.vibrate([800,200,800,200,800,200,800,200,800,300,800]);
     alert(message);
   
   }
-  function ClearList(){
-    this.listBox.style.display="none";
-  }
-  function ClearAll(){
-    this.boxInterface.style.display= "none";
-  }
-
 }
 ClearAllBtn.onclick = ()=>{
   listInterface.removeChild(boxInterface)
