@@ -1,33 +1,46 @@
 
-.list-interface{
-  width:300px;
-  height:350px;
-  background-color:red;
+#list-interface{
+  height:fit-content;
+  background-color:lightblue;
+  padding: 10px;
 }
-.header{
+#header{
   color:white;
   
 }
-.add-list{
-  float:right;
+#time-label{
+  font-weight: bold;
+  color:white;
 }
-.input-box{
+#input-hour{
+  width:30px;
+  height:20px;
+}
+#input-minute{
+  width:30px;
+  height:20px;
+}
+#add-list{
+  float:right;
+  height:28px;
+}
+#input-box{
   width:250px;
   padding-left:5px;
 }
-.check-box{
+#check-box{
   height:20px;
   width:20px;
 }
-.list-span{
+#list-span{
   padding:5px;
   position:centre;
   height:20px;
 }
-.list-box{
+#list-box{
   background-color:lightgrey;
 }
-.clear-button{
+#clear-button{
   float:right;
   height:25px;
 }
