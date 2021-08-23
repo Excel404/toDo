@@ -1,65 +1,124 @@
-//document.write("My ToDo List");
-var self =this;
-function ToDo(){
-  self.listInterface = document.createElement("div");
-  self.listInterface.setAttribute("class","list-interface");
-  self.header = document.createElement("h2");
-  self.header.setAttribute("class","header");
-  self.header.innerHTML = "My ToDo List";
-  self.listInterface.appendChild(self.header);
-  self.inputBox = document.createElement("input");
-  self.inputBox.setAttribute("type", "text");
-  self.inputBox.setAttribute("class", "input-box");
-  self.inputBox.setAttribute("placeholder", "Type your activity here");
-  self.addList= document.createElement("button");
-  self.addList.setAttribute("class","add-list");
-  
 
-  self.addList.innerHTML = "Add";
-  self.listInterface.appendChild(self.inputBox);
-  self.listInterface.appendChild(self.addList);
-  document.body.appendChild(self.listInterface);
-  function CreateToDo(){
-    self.boxInterface = document.createElement("div");
-    self.listBox= document.createElement("div");
-    self.listBox.setAttribute("class","list-box");
-    self.checkBox = document.createElement("input");
-    self.checkBox.setAttribute("type","checkbox");
-    self.checkBox.setAttribute("class","check-box");
-    var message = self.inputBox.value;
-    self.listSpan = document.createElement("span");
-    self.listSpan.setAttribute("class","list-span");
-    self.listSpan.innerHTML =message;
-    //self.listSpan.style.backgroundColor ='blue';
-    self.clearButton= document.createElement("button");
-    self.clearButton.setAttribute("class","clear-button");
-    self.clearButton.innerHTML= "Clear";
-    
-    //self.clearButton.setAttribute("")
-   
-    
-    self.listBox.appendChild(self.checkBox);
-    self.listBox.appendChild(self.listSpan);
-    self.listBox.appendChild(self.clearButton);
-    self.boxInterface.appendChild(self.listBox);
-    self.listInterface.appendChild(self.boxInterface);
-    
-    
-    self.clearButton.addEventListener("click", function(){
-      self.listBox.style.display="none";
-    })
-    
+let listInterface = document.getElementById('list-interface');
+listInterface.style.width = window.screen.innerWidth;
+let hourElem = document.getElementById('input-hour');
+let minuteElem = document.getElementById('input-minute');
+let ClearAllBtn = document.getElementById('clearAll');
+let inputBox = document.getElementById('input-box'); 
+let message = inputBox.value;
+let timeDivElem = document.getElementsByName('dayTime')
+let boxInterface = document.createElement("div");
+function CreateToDo(message,hour,minute){
+  
+  this.listBox= document.createElement("div");
+  this.listBox.setAttribute("id","list-box");
+  this.checkBox = document.createElement("input");
+  this.checkBox.setAttribute("type","checkbox");
+  this.checkBox.setAttribute("id","check-box");
+  this.listSpan = document.createElement("span");
+  this.listSpan.setAttribute("id","list-span");
+  this.listSpan.innerHTML = message;
+  this.time = document.createElement("span");
+  this.time.setAttribute('class','time');
+  //this.time.innerHTML = `(${hour}:${minute}${timeDivElem})`;
+  this.clearButton = document.createElement("button");
+  this.clearButton.setAttribute("class","clear-button");
+  this.clearButton.innerHTML= "Clear";
+  this.clearButton.onclick = ()=>{
+    boxInterface.removeChild(this.listBox)
+  }
+  this.listBox.appendChild(this.checkBox);
+  this.listBox.appendChild(this.listSpan);
+  this.listBox.appendChild(this.time);
+  this.listBox.appendChild(this.clearButton);
+  boxInterface.appendChild(this.listBox);
+  listInterface.appendChild(boxInterface);
+  let checkAlarm =()=>{
+    let setTime = new Date();    
+    var currentHour = setTime.getHours();
+    var currentMinute = setTime.getMinutes();
+    var currentTime = currentHour*3600 + currentMinute*60;
+    var setTime2 = hour*3600 + minute*60;
+    var timeRem = setTime2 - currentTime;
+    var timeRem1 = hour - currentHour;
+    var timeRem2 = minute - currentMinute;
+    if(hour!= 12){
+      if(timeDivElem[0].checked){
+        this.time.innerHTML = hourElem.value +':'+ minuteElem.value+ timeDivElem[0].value+' ';      
+        if (setTime2==currentTime){
+          
+          alarmRing();
+        }
+        else{
+          alert(`Alarm set for ${timeRem1}hours ${timeRem2}Minutes from now`);
+          window.setTimeout(checkAlarm, Math.abs(timeRem)*1000);
+          console.log(hour)
+        }
+      }else if(timeDivElem[1].checked){
+        this.time.innerHTML = hourElem.value +':'+ minuteElem.value+ timeDivElem[1].value+' ';
+        hour = parseInt(hourElem.value)+12;
+        setTime2 = hour*3600 + minute*60;
+        timeRem = setTime2 - currentTime;
+        timeRem1 = hour - currentHour;
+        timeRem2 = minute - currentMinute;
+        if (setTime2==currentTime){
+          alarmRing();
+        }
+        else{
+          alert(`Alarm set for ${timeRem1}hours ${timeRem2}Minutes from now`);
+          window.setTimeout(checkAlarm, Math.abs(timeRem)*1000);
+          
+        }
+      }
+    }else{
+      if(timeDivElem[0].checked){
+        this.time.innerHTML = hourElem.value +':'+ minuteElem.value+ timeDivElem[0].value+' ';
+        hour = 0;
+        setTime2 = hour*3600 + minute*60;
+        timeRem = setTime2 - currentTime;
+        timeRem2 = minute - currentMinute;
+        timeRem1 = 24 - currentHour;
+        if (setTime2==currentTime){
+          alarmRing();
+        }
+        else{
+          alert(`Alarm set for ${timeRem1}hours ${timeRem2}Minutes from now`);
+          window.setTimeout(checkAlarm, Math.abs(timeRem)*1000);
+      
+        }
+        
+      }else if(timeDivElem[1].checked){
+        this.time.innerHTML = hourElem.value +':'+ minuteElem.value+ timeDivElem[1].value+' ';      
+        setTime2 = hour*3600 + minute*60;
+        timeRem = setTime2 - currentTime;
+        timeRem1 = hour - currentHour;
+        timeRem2 = minute - currentMinute;
+        if (setTime2==currentTime){
+          alarmRing();
+        }
+        else{
+          alert(`Alarm set for ${timeRem1}hours ${timeRem2}Minutes from now`);
+          window.setTimeout(checkAlarm, Math.abs(timeRem)*1000);
+      
+        }
+      }
+    }
     
   }
- 
-  self.removeList = document.createElement("button");
-  self.removeList.setAttribute("class", "remove-list");
-  self.removeList.innerHTML ="Clear All"
- // self.listInterface.appendChild(self.removeList);
-  self.removeList.addEventListener("click",function(){
-    self.boxInterface.style.display= "none";
-    });
-  self.addList.addEventListener("click",CreateToDo);
- 
+  checkAlarm();
+  function alarmRing(){
+    alert(message);
+  
+  }
+  function ClearList(){
+    this.listBox.style.display="none";
+  }
+  function ClearAll(){
+    this.boxInterface.style.display= "none";
+  }
+
 }
-var toDo1= new ToDo();
+ClearAllBtn.onclick = ()=>{
+  listInterface.removeChild(boxInterface)
+}
+console.log(localStorage)
