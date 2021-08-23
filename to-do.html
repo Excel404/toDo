@@ -1,9 +1,21 @@
 <!DOCTYPE HTML>
 <html>
-  
-  <link rel="stylesheet" type="text/css" href= "style/to-do.css">
-  
+  <head>
+    <link rel="stylesheet" type="text/css" href= "to-do.css">
+  </head>
   <body>
-    <script src="script/to-do1.js" type= "text/javascript"></script>
+    <h2>My ToDo List</h2>
+    <div id ="list-interface">
+      <input type = 'text' id ='input-box' placeholder="Type your activity here">
+      <span>Set Time</span>
+      <input type ='number' id ='input-hour' placeholder = 'Hour'>
+      <input type ='number' id ='input-minute' placeholder = 'Minute'>
+      
+      <input type="radio" value="AM" name="dayTime">AM
+      <input type="radio" value="PM" name="dayTime">PM
+      <button id = 'createToDo' onclick = 'new CreateToDo(inputBox.value,hourElem.value,minuteElem.value)'>Create ToDo</button>
+      <button id = 'clearAll'>Clear All</button>
+    </div>
   </body>
-</html>
+  <script src="to-do1.js" type= "text/javascript"></script>
+  </html>
